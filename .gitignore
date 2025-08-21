@@ -1,0 +1,15 @@
+# Node.js dependencies
+node_modules/
+
+# Wrangler CLI temporary files
+.wrangler/
+
+# Build output (if any)
+# dist/
+# build/
+
+*.md
+
+# Environment variables
+.env
+.env.*

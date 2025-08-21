@@ -1,0 +1,76 @@
+import { fetchClient } from "../../utils/httpClient";
+import type { Platform, PlatformSearchResult, SearchResultItem } from "../../types";
+
+const API_URL = "https://www.moyu.moe/api/search";
+const BASE_URL = "https://www.moyu.moe/patch/";
+
+interface KunGalgameBuDingItem {
+  id: number;
+  name: string;
+}
+
+interface KunGalgameBuDingResponse {
+  galgames: KunGalgameBuDingItem[];
+}
+
+async function searchKunGalgameBuDing(game: string): Promise<PlatformSearchResult> {
+  const searchResult: PlatformSearchResult = {
+    name: "鲲Galgame补丁",
+    count: 0,
+    items: [],
+  };
+
+  try {
+    const payload = {
+      limit: 24, // Hardcoded as per original script
+      page: 1,
+      query: game.split(/\s+/), // Split by whitespace
+      searchOption: {
+        searchInAlias: true,
+        searchInIntroduction: false,
+        searchInTag: false,
+      },
+    };
+
+    const response = await fetchClient(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`API response status code is ${response.status}`);
+    }
+
+    const data = await response.json() as KunGalgameBuDingResponse;
+    
+    const items: SearchResultItem[] = data.galgames.map(item => ({
+      name: item.name,
+      url: `${BASE_URL}${item.id}/introduction`,
+    }));
+
+    searchResult.items = items;
+    searchResult.count = items.length;
+
+  } catch (error) {
+    if (error instanceof Error) {
+      searchResult.error = error.message;
+    } else {
+      searchResult.error = "An unknown error occurred";
+    }
+    searchResult.count = -1;
+  }
+
+  return searchResult;
+}
+
+const KunGalgameBuDing: Platform = {
+  name: "鲲Galgame补丁",
+  color: "lime",
+  magic: false,
+  search: searchKunGalgameBuDing,
+};
+
+export default KunGalgameBuDing;
