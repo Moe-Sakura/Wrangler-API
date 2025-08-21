@@ -25,10 +25,10 @@ async function searchTWOdfan(game: string): Promise<PlatformSearchResult> {
       throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
+    console.log("2dfan API HTML Response:", response.text());
+
     const data = await response.json() as TwoDFanResponse;
     const html = data.subjects;
-
-    console.log("2dfan API HTML Response:", html);
     
     const matches = html.matchAll(REGEX);
 
