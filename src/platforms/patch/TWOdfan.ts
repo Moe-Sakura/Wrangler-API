@@ -27,6 +27,8 @@ async function searchTWOdfan(game: string): Promise<PlatformSearchResult> {
 
     const data = await response.json() as TwoDFanResponse;
     const html = data.subjects;
+
+    console.log("2dfan API HTML Response:", html);
     
     const matches = html.matchAll(REGEX);
 

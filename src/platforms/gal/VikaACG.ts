@@ -6,7 +6,7 @@ const API_URL = "https://www.vikacg.com/wp-json/b2/v1/getPostList";
 // The Python code suggests the response text itself might be a JSON string
 // that contains escaped HTML. Let's try to parse it as JSON first.
 // The regex is applied to the *unescaped* string.
-const REGEX = /<h2><a  target="_blank" href="(?<URL>.*?)" title="(?<NAME>.*?)"/gs;
+const REGEX = /<h2><a  target="_blank" href="(?<URL>.*?)">(?<NAME>.*?)<"/gs;
 
 async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {

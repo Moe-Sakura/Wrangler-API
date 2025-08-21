@@ -22,9 +22,6 @@ async function searchKoyso(game: string): Promise<PlatformSearchResult> {
     }
 
     const html = await response.text();
-    // --- DEBUGGING: Print the full HTML content ---
-    console.log("Koyso API HTML Response:", html);
-    // --- END DEBUGGING ---
 
     const matches = html.matchAll(REGEX);
 
