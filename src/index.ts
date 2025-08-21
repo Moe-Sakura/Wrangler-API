@@ -54,6 +54,10 @@ export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    if (url.pathname === '/') {
+      return Response.redirect('https://searchgal.homes', 302);
+    }
+
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders });
     }

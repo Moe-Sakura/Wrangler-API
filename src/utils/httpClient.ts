@@ -44,6 +44,8 @@ export async function fetchClient(
  * @param data 要记录的数据对象。
  */
 export async function logToCF(data: object) {
+  // 在此处添加 console.log，以便在 Cloudflare 控制台也能看到日志
+  console.log(JSON.stringify(data));
   try {
     await fetch("https://log.gal.homes", {
       method: "POST",
