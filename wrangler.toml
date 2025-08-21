@@ -1,4 +1,4 @@
-name = "searchgal-worker"
+name = "searchgalapi"
 main = "src/index.ts"
 compatibility_date = "2023-10-30"
 
