@@ -22,7 +22,7 @@ async function searchXxacg(game: string): Promise<PlatformSearchResult> {
 
     const response = await fetchClient(url);
     if (!response.ok) {
-      throw new Error(`Search API response status code is ${response.status}`);
+      throw new Error(`Search 资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
     html = await response.text();

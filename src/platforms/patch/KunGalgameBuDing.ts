@@ -41,7 +41,7 @@ async function searchKunGalgameBuDing(game: string): Promise<PlatformSearchResul
     });
 
     if (!response.ok) {
-      throw new Error(`API response status code is ${response.status}`);
+      throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
     const data = await response.json() as KunGalgameBuDingResponse;

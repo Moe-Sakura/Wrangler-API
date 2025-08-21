@@ -32,10 +32,27 @@ export async function fetchClient(
     return response;
   } catch (error) {
     if (error instanceof Error && error.name === 'AbortError') {
-      throw new Error(`Request timed out after ${TIMEOUT_SECONDS} seconds`);
+      throw new Error(`资源平台 SearchAPI 请求超时`);
     }
     throw error;
   } finally {
     clearTimeout(timeoutId);
+  }
+}
+/**
+ * 向 Cloudflare 发送日志。
+ * @param data 要记录的数据对象。
+ */
+export async function logToCF(data: object) {
+  try {
+    await fetch("https://log.gal.homes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    console.error("Failed to log to Cloudflare:", error);
   }
 }

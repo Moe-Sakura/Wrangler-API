@@ -1,3 +1,4 @@
+import { logToCF } from "./utils/httpClient";
 import type { Platform, PlatformSearchResult, StreamProgress, StreamResult } from "./types";
 import platformsGal from "./platforms/gal";
 import platformsPatch from "./platforms/patch";
@@ -22,6 +23,11 @@ export async function handleSearchRequestStream(
   writer: WritableStreamDefaultWriter<Uint8Array>,
   zypassword: string = "" // 添加 zypassword 参数
 ): Promise<void> {
+  // 记录搜索关键词
+  logToCF({
+    message: `搜索关键词: ${game}`,
+    level: "info",
+  });
   const encoder = new TextEncoder();
   const total = platforms.length;
   let completed = 0;
@@ -38,6 +44,13 @@ export async function handleSearchRequestStream(
       const progress: StreamProgress = { completed, total };
       
       if (result.count > 0 || result.error) {
+        if (result.error) {
+          // 记录平台错误
+          logToCF({
+            message: `平台 ${result.name} 搜索错误: ${result.error}`,
+            level: "error",
+          });
+        }
         const streamResult: StreamResult = {
           name: result.name,
           color: result.error ? 'red' : platform.color,
@@ -53,6 +66,11 @@ export async function handleSearchRequestStream(
       completed++;
       // 记录平台内部的未知错误
       console.error(`Error searching platform ${platform.name}:`, e);
+      // 记录平台内部的未知错误
+      logToCF({
+        message: `平台 ${platform.name} 内部错误: ${e instanceof Error ? e.message : String(e)}`,
+        level: "error",
+      });
       const progress: StreamProgress = { completed, total };
       await writer.write(encoder.encode(formatStreamEvent({ progress })));
     }

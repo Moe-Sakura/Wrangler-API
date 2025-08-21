@@ -18,7 +18,7 @@ async function searchZhenHongXiaoZhan(game: string): Promise<PlatformSearchResul
 
     const response = await fetchClient(url);
     if (!response.ok) {
-      throw new Error(`API response status code is ${response.status}`);
+      throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
     const html = await response.text();
@@ -29,7 +29,7 @@ async function searchZhenHongXiaoZhan(game: string): Promise<PlatformSearchResul
       if (match.groups?.NAME && match.groups?.URL) {
         items.push({
           name: match.groups.NAME.trim(),
-          url: BASE_URL + encodeURIComponent(match.groups.URL),
+          url: BASE_URL + match.groups.URL,
         });
       }
     }

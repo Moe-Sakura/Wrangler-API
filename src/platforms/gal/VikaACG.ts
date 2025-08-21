@@ -39,7 +39,7 @@ async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
     });
 
     if (!response.ok) {
-      throw new Error(`API response status code is ${response.status}`);
+      throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
     const rawText = await response.text();

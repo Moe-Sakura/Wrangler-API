@@ -3,7 +3,7 @@ import type { Platform, PlatformSearchResult, SearchResultItem } from "../../typ
 
 const API_URL = "https://koyso.to/";
 const BASE_URL = "https://koyso.to";
-const REGEX = /<a class="game_item" href="(?<URL>.+?)"\s*>.*?<span style="background-color: rgba\(128,128,128,0\)">(?<NAME>.+?)<\/span>/gs;
+const REGEX = /<a class="game_item"\s+href="(?<URL>.+?)"\s*>.*?<span style="background-color: rgba\(128,128,128,0\)">(?<NAME>.+?)<\/span>/gs;
 
 async function searchKoyso(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
@@ -18,12 +18,12 @@ async function searchKoyso(game: string): Promise<PlatformSearchResult> {
 
     const response = await fetchClient(url);
     if (!response.ok) {
-      throw new Error(`API response status code is ${response.status}`);
+      throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
     const html = await response.text();
     // --- DEBUGGING: Print the full HTML content ---
-    // console.log("Koyso API HTML Response:", html.substring(0, 1000)); // Print first 1000 chars
+    console.log("Koyso API HTML Response:", html);
     // --- END DEBUGGING ---
 
     const matches = html.matchAll(REGEX);
@@ -33,7 +33,7 @@ async function searchKoyso(game: string): Promise<PlatformSearchResult> {
       if (match.groups?.NAME && match.groups?.URL) {
         items.push({
           name: match.groups.NAME.trim(),
-          url: BASE_URL + encodeURIComponent(match.groups.URL),
+          url: BASE_URL + match.groups.URL,
         });
       }
     }

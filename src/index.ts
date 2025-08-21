@@ -1,8 +1,5 @@
 import { handleSearchRequestStream, PLATFORMS_GAL, PLATFORMS_PATCH } from "./core";
-import { checkRateLimit } from "./ratelimit";
-
 export interface Env {
-  RATE_LIMIT_KV: KVNamespace;
 }
 
 const corsHeaders = {
@@ -17,20 +14,6 @@ async function handleSearch(request: Request, env: Env, ctx: ExecutionContext, p
     const game = formData.get("game") as string;
     const zypassword = formData.get("zypassword") as string || ""; // 获取 zypassword
 
-    if (env.RATE_LIMIT_KV) {
-      const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-      const { allowed, retryAfter } = await checkRateLimit(ip, env.RATE_LIMIT_KV);
-
-      if (!allowed) {
-        return new Response(
-          JSON.stringify({ error: `搜索过于频繁, 请 ${retryAfter} 秒后再试` }),
-          {
-            status: 429,
-            headers: { "Content-Type": "application/json", ...corsHeaders },
-          }
-        );
-      }
-    }
 
     if (!game || typeof game !== 'string') {
       return new Response(JSON.stringify({ error: "Game name is required" }), {

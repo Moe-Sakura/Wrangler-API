@@ -2,10 +2,5 @@ name = "searchgal-worker"
 main = "src/index.ts"
 compatibility_date = "2023-10-30"
 
-[vars]
-# 如果有需要，可以在这里添加环境变量
-
-# --- KV 命名空间绑定 ---
-[[kv_namespaces]]
-binding = "RATE_LIMIT_KV"
-id = "7ed4c4f36baf419bb9ed54538a61f473"
+[observability.logs]
+enabled = true
