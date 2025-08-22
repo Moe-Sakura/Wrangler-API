@@ -51,6 +51,12 @@ async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
     
     const matches = html.replaceAll('\\/', '/').replaceAll('\\\\', '\\').matchAll(REGEX);
 
+    console.log(JSON.stringify({
+      message: "VikaACG API HTML Response",
+      html: html.replaceAll('\\/', '/').replaceAll('\\\\', '\\'),
+      level: "info",
+    }));
+
     const items: SearchResultItem[] = [];
     for (const match of matches) {
       if (match.groups?.NAME && match.groups?.URL) {

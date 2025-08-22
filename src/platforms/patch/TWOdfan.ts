@@ -22,12 +22,6 @@ async function searchTWOdfan(game: string): Promise<PlatformSearchResult> {
     }
     
     const html: string = await response.text();
-
-    console.log(JSON.stringify({
-      message: "2dfan API HTML Response",
-      html: html,
-      level: "info",
-    }));
     
     const matches = html.matchAll(REGEX);
 
