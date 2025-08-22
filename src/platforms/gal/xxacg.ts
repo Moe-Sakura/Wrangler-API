@@ -38,11 +38,6 @@ async function searchXxacg(game: string): Promise<PlatformSearchResult> {
       }
     }
     
-    if (items.length === 0 && html.length > 0) {
-        // 如果没有匹配项，但我们确实收到了 HTML，这可能意味着页面结构已更改。
-        // 将部分 HTML 包含在错误中以供调试。
-        throw new Error(`No matches found on page. HTML starts with: ${html.substring(0, 500)}`);
-    }
 
     searchResult.items = items;
     searchResult.count = items.length;

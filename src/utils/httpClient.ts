@@ -39,22 +39,3 @@ export async function fetchClient(
     clearTimeout(timeoutId);
   }
 }
-/**
- * 向 Cloudflare 发送日志。
- * @param data 要记录的数据对象。
- */
-export async function logToCF(data: object) {
-  // 在此处添加 console.log，以便在 Cloudflare 控制台也能看到日志
-  console.log(JSON.stringify(data));
-  try {
-    await fetch("https://log.gal.homes", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-  } catch (error) {
-    console.error("Failed to log to Cloudflare:", error);
-  }
-}
