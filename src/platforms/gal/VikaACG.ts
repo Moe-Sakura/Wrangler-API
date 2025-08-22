@@ -48,14 +48,8 @@ async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
     // The response is a JSON-encoded string containing HTML.
     // .json() will parse the JSON and unescape the string content.
     const html: string = await response.text();
-
-    console.log(JSON.stringify({
-      message: "2dfan API HTML Response",
-      html: html,
-      level: "info",
-    }));
     
-    const matches = html.matchAll(REGEX);
+    const matches = html.replaceAll('\\/', '/').replaceAll('\\\\', '\\').matchAll(REGEX);
 
     const items: SearchResultItem[] = [];
     for (const match of matches) {

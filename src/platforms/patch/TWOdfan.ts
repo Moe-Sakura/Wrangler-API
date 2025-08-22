@@ -5,10 +5,6 @@ const API_URL = "https://2dfan.com/subjects/search";
 const BASE_URL = "https://2dfan.com";
 const REGEX = /<h4 class="media-heading"><a target="_blank" href="(?<URL>.*?)">(?<NAME>.*?)<\/a><\/h4>/gs;
 
-interface TwoDFanResponse {
-  subjects: string; // This is an HTML string
-}
-
 async function searchTWOdfan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
     name: "2dfan",
@@ -25,14 +21,13 @@ async function searchTWOdfan(game: string): Promise<PlatformSearchResult> {
       throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
     
+    const html: string = await response.text();
+
     console.log(JSON.stringify({
       message: "2dfan API HTML Response",
-      html: response.text(),
+      html: html,
       level: "info",
     }));
-
-    const data = await response.json() as TwoDFanResponse;
-    const html = data.subjects;
     
     const matches = html.matchAll(REGEX);
 
