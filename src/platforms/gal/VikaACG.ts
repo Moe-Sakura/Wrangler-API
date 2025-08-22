@@ -49,7 +49,10 @@ async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
     // .json() will parse the JSON and unescape the string content.
     const html: string = await response.text();
     
-    const matches = html.replaceAll('\\/', '/').replaceAll('\\\\', '\\').replaceAll('\\"', '"').matchAll(REGEX);
+    const decodedHtml = html.replaceAll('\\/', '/').replaceAll('\\\\', '\\').replaceAll('\\"', '"').replace(/\\u([\d\w]{4})/gi, (match, grp) => {
+      return String.fromCharCode(parseInt(grp, 16));
+    });
+    const matches = decodedHtml.matchAll(REGEX);
 
     const items: SearchResultItem[] = [];
     for (const match of matches) {
