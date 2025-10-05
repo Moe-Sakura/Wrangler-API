@@ -5,41 +5,44 @@ const BASE_URL = "https://galzy.eu.org";
 
 async function searchZiYuanShe(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "紫缘社",
+    name: "紫缘Gal",
     count: 0,
     items: [],
   };
 
   try {
-    const response = await fetchClient(`${BASE_URL}/search?q=${encodeURIComponent(game)}`);
-
+    const response = await fetchClient(`${BASE_URL}/api/search?q=${encodeURIComponent(game)}`);
     if (!response.ok) {
       throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
-
-    const html = await response.text();
-    const tempContent = html.split('</script><script>self.__next_f.push([1,"')
-    const scriptContent = tempContent[tempContent.length - 1].split('\\n"])</script></body></html>')[0];
-    const cleanedScriptContent = scriptContent.substring(scriptContent.indexOf(':') + 1).replace(/\\"/g, '"');
-    const jsonData = JSON.parse(cleanedScriptContent);
     
-    const gameListData = jsonData[3].children[2][3].gameListData.hits;
+    const resJson: any = await response.json();
+    
+    const gameListData = resJson.hits;
 
     if (gameListData) {
-      const items: SearchResultItem[] = gameListData.map((item: any) => ({
-        name: (() => {
-          const zhTitle = item.titles.find((title: any) => title.lang === 'zh-Hans');
-          const jaTitle = item.titles.find((title: any) => title.lang === 'ja');
-          if (zhTitle) {
-            return zhTitle.title;
+      const items: SearchResultItem[] = gameListData.map((item: any) => {
+        let name: string = "未知";
+        let firstTitle: string | undefined;
+
+        for (const titleObj of item.titles) {
+          if (!firstTitle) {
+            firstTitle = titleObj.title;
           }
-          if (jaTitle) {
-            return jaTitle.title;
+          if (["zh-Hans", "zh-Hant"].includes(titleObj.lang)) {
+            name = titleObj.title;
+            break;
           }
-          return item.titles[0]?.title || '';
-        })(),
-        url: `${BASE_URL}/${item.id}`,
-      }));
+        }
+        if (name === "未知" && firstTitle) {
+          name = firstTitle;
+        }
+
+        return {
+          name: name.trim(),
+          url: `${BASE_URL}/${item.id}`,
+        };
+      });
       searchResult.items = items;
       searchResult.count = items.length;
     }
@@ -56,7 +59,7 @@ async function searchZiYuanShe(game: string): Promise<PlatformSearchResult> {
 }
 
 const ZiYuanShe: Platform = {
-  name: "紫缘社",
+  name: "紫缘Gal",
   color: "lime",
   magic: false,
   search: searchZiYuanShe,
