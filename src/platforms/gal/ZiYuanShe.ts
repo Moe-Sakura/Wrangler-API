@@ -1,69 +1,48 @@
 import { fetchClient } from "../../utils/httpClient";
 import type { Platform, PlatformSearchResult, SearchResultItem } from "../../types";
 
-const API_URL = "https://galzy.eu.org/api/fs/search";
 const BASE_URL = "https://galzy.eu.org";
 
-interface ZiYuanSheItem {
-  name: string;
-  parent: string;
-}
-
-interface ZiYuanSheResponse {
-  message: string;
-  data: {
-    content: ZiYuanSheItem[];
-    total: number;
-  };
-}
-
-async function searchZiYuanShe(game: string, zypassword: string = ""): Promise<PlatformSearchResult> {
+async function searchZiYuanShe(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "紫缘Gal",
+    name: "紫缘社",
     count: 0,
     items: [],
   };
 
   try {
-    const payload = {
-      parent: "/",
-      keywords: game,
-      scope: 0,
-      page: 1,
-      per_page: 999999, // Corresponds to MAX_RESULTS
-      password: zypassword, // Pass the zypassword here
-    };
-
-    const response = await fetchClient(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    const response = await fetchClient(`${BASE_URL}/search?q=${encodeURIComponent(game)}`);
 
     if (!response.ok) {
       throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
-    const data = await response.json() as ZiYuanSheResponse;
+    const html = await response.text();
+    const tempContent = html.split('</script><script>self.__next_f.push([1,"')
+    const scriptContent = tempContent[tempContent.length - 1].split('\\n"])</script></body></html>')[0];
+    const cleanedScriptContent = scriptContent.substring(scriptContent.indexOf(':') + 1).replace(/\\"/g, '"');
+    const jsonData = JSON.parse(cleanedScriptContent);
+    
+    const gameListData = jsonData[3].children[2][3].gameListData.hits;
 
-    if (data.message !== "success") {
-      throw new Error(`${data.message}`);
+    if (gameListData) {
+      const items: SearchResultItem[] = gameListData.map((item: any) => ({
+        name: (() => {
+          const zhTitle = item.titles.find((title: any) => title.lang === 'zh-Hans');
+          const jaTitle = item.titles.find((title: any) => title.lang === 'ja');
+          if (zhTitle) {
+            return zhTitle.title;
+          }
+          if (jaTitle) {
+            return jaTitle.title;
+          }
+          return item.titles[0]?.title || '';
+        })(),
+        url: `${BASE_URL}/${item.id}`,
+      }));
+      searchResult.items = items;
+      searchResult.count = items.length;
     }
-
-    if (data.data.total !== data.data.content.length) {
-      throw new Error("访问密码错误");
-    }
-
-    const items: SearchResultItem[] = data.data.content.map(item => ({
-      name: item.name.trim(),
-      url: BASE_URL + item.parent + "/" + item.name,
-    }));
-
-    searchResult.items = items;
-    searchResult.count = items.length;
-
   } catch (error) {
     if (error instanceof Error) {
       searchResult.error = error.message;
@@ -77,8 +56,8 @@ async function searchZiYuanShe(game: string, zypassword: string = ""): Promise<P
 }
 
 const ZiYuanShe: Platform = {
-  name: "紫缘Gal",
-  color: "white",
+  name: "紫缘社",
+  color: "lime",
   magic: false,
   search: searchZiYuanShe,
 };

@@ -14,13 +14,11 @@ function formatStreamEvent(data: object): string {
  * @param game 要搜索的游戏名称。
  * @param platforms 要使用的平台列表。
  * @param writer 用于写入 SSE 事件的 WritableStreamDefaultWriter。
- * @param zypassword (可选) 访问某些平台可能需要的密码。
  */
 export async function handleSearchRequestStream(
   game: string,
   platforms: Platform[],
   writer: WritableStreamDefaultWriter<Uint8Array>,
-  zypassword: string = "" // 添加 zypassword 参数
 ): Promise<void> {
   // 记录搜索关键词
   console.log(JSON.stringify({
@@ -36,8 +34,7 @@ export async function handleSearchRequestStream(
 
   const searchPromises = platforms.map(async (platform) => {
     try {
-      // 传递 zypassword 给平台搜索函数
-      const result = await platform.search(game, zypassword); 
+      const result = await platform.search(game); 
       completed++;
       
       const progress: StreamProgress = { completed, total };

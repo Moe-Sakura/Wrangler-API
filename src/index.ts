@@ -12,7 +12,6 @@ async function handleSearch(request: Request, env: Env, ctx: ExecutionContext, p
   try {
     const formData = await request.formData();
     const game = formData.get("game") as string;
-    const zypassword = formData.get("zypassword") as string || ""; // 获取 zypassword
 
 
     if (!game || typeof game !== 'string') {
@@ -27,7 +26,7 @@ async function handleSearch(request: Request, env: Env, ctx: ExecutionContext, p
 
     // 将异步任务交给 waitUntil 来处理，确保它能完整执行
     ctx.waitUntil(
-      handleSearchRequestStream(game.trim(), platforms, writer, zypassword) // 传递 zypassword
+      handleSearchRequestStream(game.trim(), platforms, writer)
         .catch(err => console.error("Streaming error:", err))
         .finally(() => writer.close())
     );
