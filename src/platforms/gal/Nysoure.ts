@@ -16,7 +16,6 @@ interface NysoureResponse {
 
 async function searchNysoure(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "Nysoure",
     count: 0,
     items: [],
   };
@@ -59,7 +58,8 @@ async function searchNysoure(game: string): Promise<PlatformSearchResult> {
 
 const Nysoure: Platform = {
   name: "Nysoure",
-  color: "gold",
+  color: "lime",
+  tags: ["NoReq", "magic", "SuDrive"],
   magic: true,
   search: searchNysoure,
 };

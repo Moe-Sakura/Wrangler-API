@@ -15,7 +15,6 @@ interface FuFuACGResponse {
 
 async function searchFuFuACG(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "FuFuACG",
     count: 0,
     items: [],
   };
@@ -59,6 +58,7 @@ async function searchFuFuACG(game: string): Promise<PlatformSearchResult> {
 const FuFuACG: Platform = {
   name: "FuFuACG",
   color: "white",
+  tags: ["LoginPay"],
   magic: false,
   search: searchFuFuACG,
 };

@@ -19,7 +19,6 @@ interface MaoMaoResponse {
 
 async function searchMaoMaoWangPan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "猫猫网盘",
     count: 0,
     items: [],
   };
@@ -77,6 +76,7 @@ async function searchMaoMaoWangPan(game: string): Promise<PlatformSearchResult> 
 const MaoMaoWangPan: Platform = {
   name: "猫猫网盘",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchMaoMaoWangPan,
 };

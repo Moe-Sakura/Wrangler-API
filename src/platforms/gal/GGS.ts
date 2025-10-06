@@ -11,7 +11,6 @@ interface GgsItem {
 
 async function searchGGS(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "GGS",
     count: 0,
     items: [],
   };
@@ -49,6 +48,7 @@ async function searchGGS(game: string): Promise<PlatformSearchResult> {
 const GGS: Platform = {
   name: "GGS",
   color: "lime",
+  tags: ["NoReq"],
   magic: false,
   search: searchGGS,
 };

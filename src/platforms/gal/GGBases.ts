@@ -7,7 +7,6 @@ const REGEX = /<a index=\d+ id="bid(?<URL>\d*?)" name="title" c=".*?" target="_b
 
 async function searchGGBases(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "GGBases",
     count: 0,
     items: [],
   };
@@ -56,6 +55,7 @@ async function searchGGBases(game: string): Promise<PlatformSearchResult> {
 const GGBases: Platform = {
   name: "GGBases",
   color: "lime",
+  tags: ["NoReq", "BTmag"],
   magic: false,
   search: searchGGBases,
 };

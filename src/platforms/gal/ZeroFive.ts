@@ -19,7 +19,6 @@ interface ZeroFiveResponse {
 
 async function searchZeroFive(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "05的资源小站",
     count: 0,
     items: [],
   };
@@ -75,6 +74,7 @@ async function searchZeroFive(game: string): Promise<PlatformSearchResult> {
 const ZeroFive: Platform = {
   name: "05的资源小站",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchZeroFive,
 };

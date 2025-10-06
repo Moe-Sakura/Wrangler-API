@@ -10,7 +10,6 @@ interface TaoHuaYuanItem {
 
 async function searchTaoHuaYuan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "桃花源",
     count: 0,
     items: [],
   };
@@ -48,6 +47,7 @@ async function searchTaoHuaYuan(game: string): Promise<PlatformSearchResult> {
 const TaoHuaYuan: Platform = {
   name: "桃花源",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchTaoHuaYuan,
 };

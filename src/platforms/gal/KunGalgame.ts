@@ -14,7 +14,6 @@ interface KunGalgameItem {
 
 async function searchKunGalgame(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "鲲Galgame",
     count: 0,
     items: [],
   };
@@ -60,6 +59,7 @@ async function searchKunGalgame(game: string): Promise<PlatformSearchResult> {
 const KunGalgame: Platform = {
   name: "鲲Galgame",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchKunGalgame,
 };

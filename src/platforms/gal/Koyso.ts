@@ -7,7 +7,6 @@ const REGEX = /<a class="game_item"\s+href="(?<URL>.+?)"\s*>.*?<span style="back
 
 async function searchKoyso(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "Koyso",
     count: 0,
     items: [],
   };
@@ -53,6 +52,7 @@ async function searchKoyso(game: string): Promise<PlatformSearchResult> {
 const Koyso: Platform = {
   name: "Koyso",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchKoyso,
 };

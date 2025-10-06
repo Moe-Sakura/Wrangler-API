@@ -7,7 +7,6 @@ const REGEX = /<entry>.*?<title>(.*?)<\/title>.*?<url>(.*?)<\/url>.*?<\/entry>/g
 
 async function searchYueYao(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "月谣",
     count: 0,
     items: [],
   };
@@ -52,6 +51,7 @@ async function searchYueYao(game: string): Promise<PlatformSearchResult> {
 const YueYao: Platform = {
   name: "月谣",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchYueYao,
 };

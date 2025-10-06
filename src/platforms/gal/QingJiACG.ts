@@ -6,7 +6,6 @@ const REGEX = /" class="lazyload fit-cover radius8">.*?<h2 class="item-heading">
 
 async function searchQingJiACG(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "青桔ACG",
     count: 0,
     items: [],
   };
@@ -57,6 +56,7 @@ async function searchQingJiACG(game: string): Promise<PlatformSearchResult> {
 const QingJiACG: Platform = {
   name: "青桔ACG",
   color: "lime",
+  tags: ["NoReq", "SplDrive"],
   magic: false,
   search: searchQingJiACG,
 };

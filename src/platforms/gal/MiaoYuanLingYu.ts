@@ -6,7 +6,6 @@ const REGEX = /<div class="item-thumbnail">\s*<a target="_blank" href="(?<URL>.*
 
 async function searchMiaoYuanLingYu(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "喵源领域",
     count: 0,
     items: [],
   };
@@ -56,6 +55,7 @@ async function searchMiaoYuanLingYu(game: string): Promise<PlatformSearchResult>
 const MiaoYuanLingYu: Platform = {
   name: "喵源领域",
   color: "white",
+  tags: ["Login", "SuDrive"],
   magic: false,
   search: searchMiaoYuanLingYu,
 };

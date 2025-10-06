@@ -18,7 +18,6 @@ interface DaoHeGalResponse {
 
 async function searchDaoHeGal(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "稻荷GAL",
     count: 0,
     items: [],
   };
@@ -63,6 +62,7 @@ async function searchDaoHeGal(game: string): Promise<PlatformSearchResult> {
 const DaoHeGal: Platform = {
   name: "稻荷GAL",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchDaoHeGal,
 };

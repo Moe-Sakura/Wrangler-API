@@ -6,7 +6,6 @@ const REGEX = /<h2 class="post-list-title">\s*<a href="(?<URL>.*?)" title=".+?" 
 
 async function searchShenShiTianTang(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "绅仕天堂",
     count: 0,
     items: [],
   };
@@ -50,7 +49,8 @@ async function searchShenShiTianTang(game: string): Promise<PlatformSearchResult
 
 const ShenShiTianTang: Platform = {
   name: "绅仕天堂",
-  color: "gold",
+  color: "white",
+  tags: ["Login", "magic", "SuDrive"],
   magic: true,
   search: searchShenShiTianTang,
 };

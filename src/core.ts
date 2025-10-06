@@ -43,13 +43,14 @@ export async function handleSearchRequestStream(
         if (result.error) {
           // 记录平台错误
           console.log(JSON.stringify({
-            message: `平台 ${result.name} 搜索错误: ${result.error}`,
+            message: `平台 ${platform.name} 搜索错误: ${result.error}`,
             level: "error",
           }));
         }
         const streamResult: StreamResult = {
-          name: result.name,
+          name: platform.name,
           color: result.error ? 'red' : platform.color,
+          tags: platform.tags,
           items: result.items,
           error: result.error,
         };

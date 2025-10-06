@@ -17,7 +17,6 @@ interface JiMengACGResponse {
 
 async function searchJiMengACG(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "绮梦ACG",
     count: 0,
     items: [],
   };
@@ -63,6 +62,7 @@ async function searchJiMengACG(game: string): Promise<PlatformSearchResult> {
 const JiMengACG: Platform = {
   name: "绮梦ACG",
   color: "lime",
+  tags: ["Rep", "SuDrive"],
   magic: false,
   search: searchJiMengACG,
 };

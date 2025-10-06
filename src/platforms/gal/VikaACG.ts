@@ -6,7 +6,6 @@ const REGEX = /<h2><a  target="_blank" href="(?<URL>.*?)">(?<NAME>.*?)<\/a>/gs;
 
 async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "VikaACG",
     count: 0,
     items: [],
   };
@@ -81,7 +80,8 @@ async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
 
 const VikaACG: Platform = {
   name: "VikaACG",
-  color: "gold",
+  color: "white",
+  tags: ["LoginPay", "magic", "MixDrive"],
   magic: true,
   search: searchVikaACG,
 };

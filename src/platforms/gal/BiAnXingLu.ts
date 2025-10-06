@@ -6,7 +6,6 @@ const REGEX = /<div class="post-info">\s*?<h2><a  href="(?<URL>.*?)">(?<NAME>.*?
 
 async function searchBiAnXingLu(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "彼岸星露",
     count: 0,
     items: [],
   };
@@ -51,6 +50,7 @@ async function searchBiAnXingLu(game: string): Promise<PlatformSearchResult> {
 const BiAnXingLu: Platform = {
   name: "彼岸星露",
   color: "lime",
+  tags: [],
   magic: false,
   search: searchBiAnXingLu,
 };

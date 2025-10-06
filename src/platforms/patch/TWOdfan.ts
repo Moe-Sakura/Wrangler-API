@@ -7,7 +7,6 @@ const REGEX = /<h4 class="media-heading"><a target="_blank" href="(?<URL>.*?)">(
 
 async function searchTWOdfan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "2dfan",
     count: 0,
     items: [],
   };
@@ -52,8 +51,9 @@ async function searchTWOdfan(game: string): Promise<PlatformSearchResult> {
 
 const TWOdfan: Platform = {
   name: "2dfan",
-  color: "lime",
-  magic: false,
+  color: "white",
+  tags: ["LoginPay", "magic", "MixDrive"],
+  magic: true,
   search: searchTWOdfan,
 };
 

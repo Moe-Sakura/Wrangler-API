@@ -6,7 +6,6 @@ const BASE_URL = "https://www.touchgal.us/";
 
 async function searchTouchGal(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "TouchGal",
     count: 0,
     items: [],
   };
@@ -67,6 +66,7 @@ async function searchTouchGal(game: string): Promise<PlatformSearchResult> {
 const TouchGal: Platform = {
   name: "TouchGal",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchTouchGal,
 };

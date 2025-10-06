@@ -7,7 +7,6 @@ const REGEX = /hover:underline" href="(?<URL>.+?)">\s*(?<NAME>.+?)\s*<\/a>/gs;
 
 async function searchZhenHongXiaoZhan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "真红小站",
     count: 0,
     items: [],
   };
@@ -52,6 +51,7 @@ async function searchZhenHongXiaoZhan(game: string): Promise<PlatformSearchResul
 const ZhenHongXiaoZhan: Platform = {
   name: "真红小站",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchZhenHongXiaoZhan,
 };

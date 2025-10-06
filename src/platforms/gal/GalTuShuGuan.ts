@@ -21,7 +21,6 @@ function stripHtml(html: string): string {
 
 async function searchGalTuShuGuan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "GAL图书馆",
     count: 0,
     items: [],
   };
@@ -81,6 +80,7 @@ async function searchGalTuShuGuan(game: string): Promise<PlatformSearchResult> {
 const GalTuShuGuan: Platform = {
   name: "GAL图书馆",
   color: "lime",
+  tags: ["NoReq", "SplDrive"],
   magic: false,
   search: searchGalTuShuGuan,
 };

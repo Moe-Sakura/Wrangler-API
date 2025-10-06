@@ -15,7 +15,6 @@ interface GalgameXResponse {
 
 async function searchGalgameX(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "Galgamex",
     count: 0,
     items: [],
   };
@@ -76,6 +75,7 @@ async function searchGalgameX(game: string): Promise<PlatformSearchResult> {
 const GalgameX: Platform = {
   name: "Galgamex",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchGalgameX,
 };

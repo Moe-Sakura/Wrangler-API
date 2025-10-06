@@ -6,7 +6,6 @@ const REGEX = /<p style="text-align: center;"> <a href=".*?" target="_blank">.*?
 
 async function searchYouYuDeloli(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "忧郁的loli",
     count: 0,
     items: [],
   };
@@ -54,6 +53,7 @@ async function searchYouYuDeloli(game: string): Promise<PlatformSearchResult> {
 const YouYuDeloli: Platform = {
   name: "忧郁的loli",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchYouYuDeloli,
 };

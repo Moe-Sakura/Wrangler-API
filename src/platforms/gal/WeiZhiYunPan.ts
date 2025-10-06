@@ -19,7 +19,6 @@ interface WeiZhiYunPanResponse {
 
 async function searchWeiZhiYunPan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "未知云盘",
     count: 0,
     items: [],
   };
@@ -75,6 +74,7 @@ async function searchWeiZhiYunPan(game: string): Promise<PlatformSearchResult> {
 const WeiZhiYunPan: Platform = {
   name: "未知云盘",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchWeiZhiYunPan,
 };

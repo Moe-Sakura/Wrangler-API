@@ -19,7 +19,6 @@ interface ZiLingDeMiaoMiaoWuResponse {
 
 async function searchZiLingDeMiaoMiaoWu(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "梓澪の妙妙屋",
     count: 0,
     items: [],
   };
@@ -75,6 +74,7 @@ async function searchZiLingDeMiaoMiaoWu(game: string): Promise<PlatformSearchRes
 const ZiLingDeMiaoMiaoWu: Platform = {
   name: "梓澪の妙妙屋",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchZiLingDeMiaoMiaoWu,
 };

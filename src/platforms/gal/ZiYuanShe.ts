@@ -5,7 +5,6 @@ const BASE_URL = "https://galzy.eu.org";
 
 async function searchZiYuanShe(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "紫缘Gal",
     count: 0,
     items: [],
   };
@@ -61,6 +60,7 @@ async function searchZiYuanShe(game: string): Promise<PlatformSearchResult> {
 const ZiYuanShe: Platform = {
   name: "紫缘Gal",
   color: "lime",
+  tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchZiYuanShe,
 };

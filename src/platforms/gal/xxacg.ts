@@ -9,7 +9,6 @@ function stripHtml(html: string): string {
 
 async function searchXxacg(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "xxacg",
     count: 0,
     items: [],
   };
@@ -56,7 +55,8 @@ async function searchXxacg(game: string): Promise<PlatformSearchResult> {
 
 const xxacg: Platform = {
   name: "xxacg",
-  color: "gold",
+  color: "white",
+  tags: ["Login", "magic", "NoSplDrive"],
   magic: true,
   search: searchXxacg,
 };

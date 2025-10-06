@@ -6,7 +6,6 @@ const REGEX = /" class="lazyload fit-cover radius8">.*?<h2 class="item-heading">
 
 async function searchHikarinagi(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "Hikarinagi",
     count: 0,
     items: [],
   };
@@ -51,6 +50,7 @@ async function searchHikarinagi(game: string): Promise<PlatformSearchResult> {
 const Hikarinagi: Platform = {
   name: "Hikarinagi",
   color: "white",
+  tags: ["LoginPay", "SuDrive"],
   magic: false,
   search: searchHikarinagi,
 };

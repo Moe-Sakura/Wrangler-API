@@ -6,7 +6,6 @@ const REGEX = /<a  target="_blank" href="(?<URL>.*?)" title="(?<NAME>.*?)"  clas
 
 async function searchACGYingYingGuai(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
-    name: "ACG嘤嘤怪",
     count: 0,
     items: [],
   };
@@ -51,6 +50,7 @@ async function searchACGYingYingGuai(game: string): Promise<PlatformSearchResult
 const ACGYingYingGuai: Platform = {
   name: "ACG嘤嘤怪",
   color: "white",
+  tags: ["LoginRep", "SplDrive"],
   magic: false,
   search: searchACGYingYingGuai,
 };
