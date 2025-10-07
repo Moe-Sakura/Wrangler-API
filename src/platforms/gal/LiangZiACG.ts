@@ -49,7 +49,7 @@ async function searchLiangZiACG(game: string): Promise<PlatformSearchResult> {
 
 const LiangZiACG: Platform = {
   name: "量子acg",
-  color: "white",
+  color: "lime",
   tags: ["NoReq", "SuDrive"],
   magic: false,
   search: searchLiangZiACG,
