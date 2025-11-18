@@ -1,7 +1,7 @@
 import { fetchClient } from "../../utils/httpClient";
 import type { Platform, PlatformSearchResult, SearchResultItem } from "../../types";
 
-const API_URL = "https://inarigal.com/api/home/list";
+const API_URL = "https://inarigal.com/api/search";
 const BASE_URL = "https://inarigal.com/detail/";
 
 interface DaoHeGalItem {
@@ -24,9 +24,7 @@ async function searchDaoHeGal(game: string): Promise<PlatformSearchResult> {
 
   try {
     const url = new URL(API_URL);
-    url.searchParams.set("page", "1");
-    url.searchParams.set("pageSize", "18"); // Hardcoded as per original script
-    url.searchParams.set("search", game);
+    url.searchParams.set("keywords", game);
 
     const response = await fetchClient(url);
     if (!response.ok) {
