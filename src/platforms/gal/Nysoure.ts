@@ -1,13 +1,13 @@
 import { fetchClient } from "../../utils/httpClient";
 import type { Platform, PlatformSearchResult, SearchResultItem } from "../../types";
 
-const API_URL = "https://res.nyne.dev/api/resource/search";
-const BASE_URL = "https://res.nyne.dev/resources/";
+const API_URL = "https://nysoure.com/api/resource/search";
+const BASE_URL = "https://nysoure.com/resources/";
 
 interface NysoureItem {
   id: number;
   title: string;
-}
+} 
 
 interface NysoureResponse {
   success: boolean;

@@ -1,8 +1,30 @@
 import { fetchClient } from "../../utils/httpClient";
 import type { Platform, PlatformSearchResult, SearchResultItem } from "../../types";
 
-const API_URL = "https://www.vikacg.com/wp-json/b2/v1/getPostList";
-const REGEX = /<h2><a  target="_blank" href="(?<URL>.*?)">(?<NAME>.*?)<\/a>/gs;
+const API_URL = "https://www.vikacg.com/api/vikacg/v1/getPosts";
+
+/**
+ * 响应体最小类型（按你贴的 JSON）
+ */
+type VikaGetPostsResponse = {
+  status?: string;
+  code?: number;
+  message?: string;
+  statusMessage?: string;
+  data?: {
+    list?: Array<{
+      id: number;
+      title: string;
+      // 其他字段这里不需要就不展开了
+    }>;
+    count?: number;
+    paged?: number;
+    page_count?: number;
+    pages?: number;
+  };
+};
+
+const POST_URL = (id: number) => `https://www.vikacg.com/p/${id}`;
 
 async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
@@ -17,26 +39,17 @@ async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        paged: 1,
-        post_paged: 1,
-        post_count: 1000, // Hardcoded limit, larger values may cause timeouts
-        post_type: "post-1",
-        post_cat: [6],
-        post_order: "modified",
-        post_meta: [
-          "user",
-          "date",
-          "des",
-          "cats",
-          "like",
-          "comment",
-          "views",
-          "video",
-          "download",
-          "hide",
-        ],
-        metas: {},
+        order: "updated_at",
+        sort: "desc",
+        status: null,
         search: game,
+        page_count: 50,
+        paged: 1,
+        category: null,
+        tag: null,
+        rating: null,
+        is_pinned: false,
+        user_id: null,
       }),
     });
 
@@ -44,28 +57,25 @@ async function searchVikaACG(game: string): Promise<PlatformSearchResult> {
       throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
     }
 
-    // The response is a JSON-encoded string containing HTML.
-    // .json() will parse the JSON and unescape the string content.
-    const html: string = await response.text();
-    
-    const decodedHtml = html.replaceAll('\\/', '/').replaceAll('\\\\', '\\').replaceAll('\\"', '"').replace(/\\u([\d\w]{4})/gi, (match, grp) => {
-      return String.fromCharCode(parseInt(grp, 16));
-    });
-    const matches = decodedHtml.matchAll(REGEX);
+    const json: VikaGetPostsResponse = await response.json();
 
-    const items: SearchResultItem[] = [];
-    for (const match of matches) {
-      if (match.groups?.NAME && match.groups?.URL) {
-        items.push({
-          name: match.groups.NAME.trim(),
-          url: match.groups.URL,
-        });
-      }
+    if (json.status !== "success" || !json.data) {
+      const msg = json.message || json.statusMessage || "接口返回非 success";
+      throw new Error(`资源平台 SearchAPI 返回异常：${msg}`);
     }
 
-    searchResult.items = items;
-    searchResult.count = items.length;
+    const list = json.data.list ?? [];
+    const items: SearchResultItem[] = list
+      .filter((p) => typeof p?.id === "number" && typeof p?.title === "string")
+      .map((p) => ({
+        name: p.title.trim(),
+        url: POST_URL(p.id),
+      }));
 
+    searchResult.items = items;
+
+    // ✅ 建议 count 用后端总数（data.count），否则用本页长度兜底
+    searchResult.count = typeof json.data.count === "number" ? json.data.count : items.length;
   } catch (error) {
     if (error instanceof Error) {
       searchResult.error = error.message;
