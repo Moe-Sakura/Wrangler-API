@@ -21,6 +21,13 @@ npx wrangler login   # 首次需要
 npx wrangler publish
 ```
 
+## Docker
+### 本地运行
+```bash
+docker build -t wrangler-api:local .
+docker run --rm -p 8787:8787 wrangler-api:local
+```
+
 ## API 使用
 - 路径：`POST /gal` 或 `POST /patch`
 - Content-Type：`multipart/form-data`
