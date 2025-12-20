@@ -21,6 +21,32 @@ curl -fsSL https://get.pnpm.io/install.sh | sh -
 pnpm install
 ```
 
+## Podman Compose
+
+### 构建
+
+先构建镜像（只需要一次，或代码变动时重建）
+
+```sh
+podman build -t cf-workers-dev .
+```
+
+### 常用命令
+
+```sh
+# 第一次启动（会自动构建镜像）
+podman-compose up -d
+
+# 停止
+podman-compose down
+
+# 查看日志
+podman-compose logs -f
+
+# 重启（代码改动后一般不需要重建，只需重启容器）
+podman-compose restart workers
+```
+
 ### Windows
 
 ```sh
