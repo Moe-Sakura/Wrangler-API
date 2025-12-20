@@ -1,19 +1,18 @@
 import { fetchClient } from "../../utils/httpClient";
 import type { Platform, PlatformSearchResult, SearchResultItem } from "../../types";
 
-const API_URL = "https://www.hikarinagi.net/";
-const REGEX = /" class="lazyload fit-cover radius8">.*?<h2 class="item-heading"><a target="_blank" href="(?<URL>.*?)">(?<NAME>.*?)<\/a><\/h2>/gs;
+const API_URL = "https://www.tiangal.com/search/";
+const REGEX = /<h2>\s*<a href="(?<URL>[^"]+)" title="(?<NAME>[^"]+)"/gs;
 
-async function searchHikarinagi(game: string): Promise<PlatformSearchResult> {
+async function searchTianYouErCiYuan(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
     count: 0,
     items: [],
   };
 
   try {
-    const url = new URL(API_URL);
-    url.searchParams.set("s", game);
-
+    const url = new URL(API_URL + encodeURIComponent(game)); // URL path parameter
+    
     const response = await fetchClient(url);
     if (!response.ok) {
       throw new Error(`资源平台 SearchAPI 响应异常状态码 ${response.status}`);
@@ -27,7 +26,7 @@ async function searchHikarinagi(game: string): Promise<PlatformSearchResult> {
       if (match.groups?.NAME && match.groups?.URL) {
         items.push({
           name: match.groups.NAME.trim(),
-          url: match.groups.URL,
+          url: new URL(match.groups.URL, API_URL).toString(),
         });
       }
     }
@@ -47,12 +46,12 @@ async function searchHikarinagi(game: string): Promise<PlatformSearchResult> {
   return searchResult;
 }
 
-const Hikarinagi: Platform = {
-  name: "Hikarinagi",
+const TianYouErCiYuan: Platform = {
+  name: "天游二次元",
   color: "white",
-  tags: ["LoginPay", "SuDrive"],
-  magic: false,
-  search: searchHikarinagi,
+  tags: ["LoginPay", "MixDrive"],
+  magic: true,
+  search: searchTianYouErCiYuan,
 };
 
-export default Hikarinagi;
+export default TianYouErCiYuan;

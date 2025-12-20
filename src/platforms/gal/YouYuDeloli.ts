@@ -13,6 +13,7 @@ async function searchYouYuDeloli(game: string): Promise<PlatformSearchResult> {
   try {
     const url = new URL(API_URL);
     url.searchParams.set("s", game);
+    url.searchParams.set("submit", '');
 
     const response = await fetchClient(url);
     if (!response.ok) {

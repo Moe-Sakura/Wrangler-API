@@ -7,7 +7,6 @@ import GalgameX from "./GalgameX";
 import GalTuShuGuan from "./GalTuShuGuan";
 import GGBases from "./GGBases";
 import GGS from "./GGS";
-import Hikarinagi from "./Hikarinagi";
 import JiMengACG from "./JiMengACG";
 import Koyso from "./Koyso";
 import KunGalgame from "./KunGalgame";
@@ -18,11 +17,12 @@ import MiaoYuanLingYu from "./MiaoYuanLingYu";
 import Nysoure from "./Nysoure";
 import QingJiACG from "./QingJiACG";
 import ShenShiTianTang from "./ShenShiTianTang";
-import TaoHuaYuan from "./TaoHuaYuan";
+import TianYouErCiYuan from "./TianYouErCiYuan";
 import TouchGal from "./TouchGal";
 import VikaACG from "./VikaACG";
 import WeiZhiYunPan from "./WeiZhiYunPan";
 import xxacg from "./xxacg";
+import YingZhiGuang from "./YingZhiGuang";
 import YouYuDeloli from "./YouYuDeloli";
 import YueYao from "./YueYao";
 import ZeroFive from "./ZeroFive";
@@ -39,7 +39,6 @@ const platforms: Platform[] = [
   GalTuShuGuan,
   GGBases,
   GGS,
-  Hikarinagi,
   JiMengACG,
   Koyso,
   KunGalgame,
@@ -50,11 +49,12 @@ const platforms: Platform[] = [
   Nysoure,
   QingJiACG,
   ShenShiTianTang,
-  TaoHuaYuan,
+  TianYouErCiYuan,
   TouchGal,
   VikaACG,
   WeiZhiYunPan,
   xxacg,
+  YingZhiGuang,
   YouYuDeloli,
   YueYao,
   ZeroFive,
