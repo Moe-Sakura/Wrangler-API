@@ -24,8 +24,8 @@ npx wrangler publish
 ## Docker
 ### 本地运行
 ```bash
-docker build -t wrangler-api:local .
-docker run --rm -p 8787:8787 wrangler-api:local
+docker build -t searchgal-api:main .
+docker run --rm -p 8787:8787 searchgal-api:main
 ```
 
 ## API 使用
