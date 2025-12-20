@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/wrangler-api
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/SearchGal-Api
 
 jobs:
   build-and-push:
