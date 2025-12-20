@@ -1,6 +1,7 @@
 # Wrangler-API
 
-Cloudflare Workers 版 SearchGal 聚合搜索 API。提供 `/gal` 和 `/patch` 两个入口，接收游戏名并以 SSE 流式返回各平台搜索结果。
+Cloudflare Workers 版 SearchGal 聚合搜索 API。
+提供 `/gal` 和 `/patch` 两个入口，接收游戏名并以 SSE 流式返回各平台搜索结果。
 
 ## 准备
 
