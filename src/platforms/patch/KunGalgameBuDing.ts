@@ -6,7 +6,7 @@ const BASE_URL = "https://www.moyu.moe/patch/";
 
 interface KunGalgameBuDingItem {
   id: number;
-  name: string;
+  name?: Record<string, string | undefined> | string;
 }
 
 interface KunGalgameBuDingResponse {
@@ -44,11 +44,24 @@ async function searchKunGalgameBuDing(game: string): Promise<PlatformSearchResul
     }
 
     const data = await response.json() as KunGalgameBuDingResponse;
-    
-    const items: SearchResultItem[] = data.galgames.map(item => ({
-      name: item.name,
-      url: `${BASE_URL}${item.id}/introduction`,
-    }));
+
+    const items: SearchResultItem[] = data.galgames.map(item => {
+      const nameByLocale = typeof item.name === "object" && item.name !== null
+        ? item.name
+        : undefined;
+      const localizedName = nameByLocale
+        ? (nameByLocale["zh-cn"]
+          || nameByLocale["ja-jp"]
+          || nameByLocale["en-us"])
+        : undefined;
+      const name = (localizedName && localizedName.trim())
+        || (typeof item.name === "string" ? item.name : "");
+
+      return {
+        name,
+        url: `${BASE_URL}${item.id}/introduction`,
+      };
+    });
 
     searchResult.items = items;
     searchResult.count = items.length;
