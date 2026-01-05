@@ -1,8 +1,8 @@
 import { fetchClient } from "../../utils/httpClient";
 import type { Platform, PlatformSearchResult, SearchResultItem } from "../../types";
 
-const API_URL = "https://www.touchgal.us/api/search";
-const BASE_URL = "https://www.touchgal.us/";
+const API_URL = "https://www.touchgal.top/api/search";
+const BASE_URL = "https://www.touchgal.top/";
 
 async function searchTouchGal(game: string): Promise<PlatformSearchResult> {
   const searchResult: PlatformSearchResult = {
@@ -13,7 +13,7 @@ async function searchTouchGal(game: string): Promise<PlatformSearchResult> {
   try {
     const payload = {
       queryString: JSON.stringify([{ type: "keyword", name: game }]),
-      limit: 24, // Hardcoded as per original script
+      limit: 12, // Hardcoded as per original script
       searchOption: {
         searchInIntroduction: false,
         searchInAlias: true,
