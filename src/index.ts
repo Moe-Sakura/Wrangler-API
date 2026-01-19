@@ -54,7 +54,8 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === '/') {
-      return Response.redirect('https://searchgal.homes', 302);
+      const origin = url.origin;
+      return Response.redirect(`https://searchgal.homes?api=${encodeURIComponent(origin)}`, 302);
     }
 
     if (request.method === "OPTIONS") {
